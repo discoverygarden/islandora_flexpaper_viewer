@@ -1,0 +1,83 @@
+<?php
+/**
+ * @file
+ * @author: Adam Vessey, William Panting
+ * This is the global code for islandora_flexpaper_viewer
+ */
+
+/**
+ * This function is the hook into the 'islandora viewer sphere' it reports that
+ * this module can handle the SWF mime type and the theme function to call
+ * to use it.
+ * @param string $mime_type: The mime_type that is being queried for
+ * @return array : 'application/x-shockwave-flash'=>'islandora_flexpaper'
+ * @return string : 'islandora_flexpaper'
+ */
+function islandora_flexpaper_viewer_islandora_viewers($mime_type=NULL) { //sadf
+ if($mime_type == NULL) {
+  return array('application/x-shockwave-flash'=>'islandora_flexpaper');
+ }
+ elseif($mime_type == 'application/x-shockwave-flash') {
+  return 'islandora_flexpaper';
+ }
+}
+
+/**
+ * This function makes available the islandroa_flexpaper theme.
+ * The theme will display a flexpaper viewer
+ * @return array: the themes available from this module
+ */
+function islandora_flexpaper_viewer_theme() {
+  return array(
+    'islandora_flexpaper' => array(
+        'arguments' => array(
+            'pid' => NULL,
+            'dsid' => 'SWF',
+            'pagenumber' => 1,
+            'flexpaper_path' =>url(drupal_get_path('module', 'islandora_flexpaper_viewer') . '/lib/flexpaper', array(
+                'absolute' => TRUE)),
+            'flexpaper_config' => array(
+                'Scale' => 0.6,
+                'ZoomTransition' => 'easeOut',
+                'ZoomTime' => 0.5,
+                'ZoomInterval' => 0.1,
+                'FitPageOnLoad' => FALSE,
+                'FitWidthOnLoad' => TRUE,
+                'PrintEnabled' => FALSE,
+                'FullScreenAsMaxWindow' => TRUE,
+                'ProgressiveLoading' => TRUE,
+                'MinZoomSize' => 0.2,
+                'MaxZoomSize' => 5,
+                'SearchMatchAll' => FALSE,
+                'InitViewMode' => 'Portrait',
+                'ViewModeToolsVisible' => TRUE,
+                'ZoomToolsVisible' => TRUE,
+                'NavToolsVisible' => TRUE,
+                'CursorToolsVisible' => TRUE,
+                'SearchToolsVisible' => TRUE,
+                'localeChain' => 'en_US'
+            )
+        ),
+        'template' => 'islandora_flexpaper'
+    ),
+  );
+}
+
+/**
+ *This is a preprocessor function that will prepare to display a flexpaper viewer
+ * @TODO: move the <?php echo drupal_to_js($flexpaper_config);?> here from the template file
+ * @param array $vars:
+ */
+function islandora_flexpaper_viewer_preprocess_islandora_flexpaper(&$vars) {
+ $pid = $vars['pid'];
+ $dsid = $vars['dsid'];
+
+ if (isset($vars['flexpaper_config']) && !isset($vars['flexpaper_config']['SwfFile'])) {
+  $vars['flexpaper_config']['SwfFile'] = url("fedora/repository/$pid/$dsid", array(
+    'absolute' => TRUE));
+ }
+
+ $base = drupal_get_path('module', 'islandora_flexpaper_viewer');
+ drupal_add_js("$base/lib/flexpaper/js/flexpaper_flash.js");
+ drupal_add_css("$base/css/flexpaper_setup.css");
+}

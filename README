@@ -1,0 +1,7 @@
+@author William Panting
+@author Adam Vessey
+
+This viewer module responds to 'application/x-shockwave-flash'
+
+This module implements a Flexpaper SWF viewer for Islandora.
+It follows the conventions as described in islandora_viewers

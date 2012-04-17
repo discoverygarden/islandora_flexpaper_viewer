@@ -1,0 +1,5 @@
+name = islandora_flexpaper_viewer
+description = Provides a flexpaper SWF viewer
+package = Islandora Viewers
+version = 6.x-$Format:%h$-dev
+core = 6.x

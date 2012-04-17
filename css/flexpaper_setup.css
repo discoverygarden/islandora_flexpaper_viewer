@@ -1,0 +1,24 @@
+/*
+Document : flexpaper_setup
+Created on : Aug 2, 2011, 10:45:47 AM
+Author : Adam Vessey
+Description:
+Purpose of the stylesheet follows.NOT re:william panting
+*/
+
+/*
+TODO customize this sample style
+Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root {
+    display: block;
+}
+
+#viewer {
+    display: block;
+    width: 700px;
+    height: 500px;
+    float:left;
+    padding: 0 1em 1em 0;
+}
