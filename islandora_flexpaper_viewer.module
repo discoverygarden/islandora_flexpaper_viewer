@@ -14,10 +14,10 @@
  * @return string : 'islandora_flexpaper'
  */
 function islandora_flexpaper_viewer_islandora_viewers($mime_type=NULL) { //sadf
- if($mime_type == NULL) {
-  return array('application/x-shockwave-flash'=>'islandora_flexpaper');
+ if ($mime_type == NULL) {
+  return array('application/x-shockwave-flash' => 'islandora_flexpaper');
  }
- elseif($mime_type == 'application/x-shockwave-flash') {
+ elseif ($mime_type == 'application/x-shockwave-flash') {
   return 'islandora_flexpaper';
  }
 }
@@ -34,7 +34,7 @@ function islandora_flexpaper_viewer_theme() {
             'pid' => NULL,
             'dsid' => 'SWF',
             'pagenumber' => 1,
-            'flexpaper_path' =>url(drupal_get_path('module', 'islandora_flexpaper_viewer') . '/lib/flexpaper', array(
+            'flexpaper_path' => url(drupal_get_path('module', 'islandora_flexpaper_viewer') . '/lib/flexpaper', array(
                 'absolute' => TRUE)),
             'flexpaper_config' => array(
                 'Scale' => 0.6,
