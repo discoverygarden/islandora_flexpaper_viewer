@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- *   This file is the template to show a flexpaper swf player
+ * This file is the template to show a flexpaper swf player
  *
  * Template file to make a FlexPaper viewer.
  *

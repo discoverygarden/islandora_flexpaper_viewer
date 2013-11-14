@@ -6,9 +6,10 @@
  */
 
 /**
- * This function is the hook into the 'islandora viewer sphere' it reports that
- * this module can handle the SWF mime type and the theme function to call
- * to use it.
+ * This function is the hook into the 'islandora viewer sphere'.
+ *
+ * It reports that this module can handle the SWF mime type and the theme
+ * function to call to use it.
  *
  * @param string $mime_type
  *   The mime_type that is being queried for
@@ -28,6 +29,7 @@ function islandora_flexpaper_viewer_islandora_viewers($mime_type = NULL) {
 
 /**
  * This function makes available the islandroa_flexpaper theme.
+ *
  * The theme will display a flexpaper viewerd
  *
  * @return array
@@ -70,8 +72,8 @@ function islandora_flexpaper_viewer_theme() {
 }
 
 /**
- * This is a preprocessor function that
- * will prepare to display a flexpaper viewer
+ * Preprocessor function that will prepare to display a flexpaper viewer.
+ *
  * @TODO: move the <?php echo drupal_to_js($flexpaper_config)
  *   ;?> here from the template file
  *
