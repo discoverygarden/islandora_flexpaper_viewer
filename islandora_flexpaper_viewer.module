@@ -6,9 +6,10 @@
  */
 
 /**
- * This function is the hook into the 'islandora viewer sphere' it reports that
- * this module can handle the SWF mime type and the theme function to call
- * to use it.
+ * This function is the hook into the 'islandora viewer sphere'.
+ *
+ * It reports that this module can handle the SWF mime type and the theme
+ * function to call to use it.
  *
  * @param string $mime_type
  *   The mime_type that is being queried for
@@ -28,6 +29,7 @@ function islandora_flexpaper_viewer_islandora_viewers($mime_type = NULL) {
 
 /**
  * This function makes available the islandroa_flexpaper theme.
+ *
  * The theme will display a flexpaper viewerd
  *
  * @return array
@@ -36,7 +38,7 @@ function islandora_flexpaper_viewer_islandora_viewers($mime_type = NULL) {
 function islandora_flexpaper_viewer_theme() {
   return array(
     'islandora_flexpaper' => array(
-      'arguments' => array(
+      'variables' => array(
         'pid' => NULL,
         'dsid' => 'SWF',
         'pagenumber' => 1,
@@ -70,8 +72,8 @@ function islandora_flexpaper_viewer_theme() {
 }
 
 /**
- * This is a preprocessor function that
- * will prepare to display a flexpaper viewer
+ * Preprocessor function that will prepare to display a flexpaper viewer.
+ *
  * @TODO: move the <?php echo drupal_to_js($flexpaper_config)
  *   ;?> here from the template file
  *
@@ -83,11 +85,13 @@ function islandora_flexpaper_viewer_preprocess_islandora_flexpaper(&$vars) {
   $dsid = $vars['dsid'];
 
   if (isset($vars['flexpaper_config']) && !isset($vars['flexpaper_config']['SwfFile'])) {
-    $vars['flexpaper_config']['SwfFile'] = url("fedora/repository/$pid/$dsid", array(
+    $vars['flexpaper_config']['SwfFile'] = url("islandora/object/$pid/datastream/$dsid/view", array(
     'absolute' => TRUE));
   }
 
   $base = drupal_get_path('module', 'islandora_flexpaper_viewer');
   drupal_add_js("$base/lib/flexpaper/js/flexpaper_flash.js");
   drupal_add_css("$base/css/flexpaper_setup.css");
+  drupal_add_js("$base/js/islandora_flexpaper.js");
+  drupal_add_js(array('islandora_flexpaper_viewer' => array('config' => $vars['flexpaper_config'], 'flexpaper_path' => url("$base/lib/flexpaper"))), 'setting');
 }
