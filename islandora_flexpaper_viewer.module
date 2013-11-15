@@ -38,7 +38,7 @@ function islandora_flexpaper_viewer_islandora_viewers($mime_type = NULL) {
 function islandora_flexpaper_viewer_theme() {
   return array(
     'islandora_flexpaper' => array(
-      'arguments' => array(
+      'variables' => array(
         'pid' => NULL,
         'dsid' => 'SWF',
         'pagenumber' => 1,
