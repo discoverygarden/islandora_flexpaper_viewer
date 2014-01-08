@@ -15,7 +15,7 @@ root {
     display: block;
 }
 
-#viewer {
+#documentViewer {
     display: block;
     width: 700px;
     height: 500px;

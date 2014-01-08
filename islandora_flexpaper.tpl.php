@@ -11,5 +11,5 @@
 
 ?>
 <div id="flexpaper">
-<div id="viewer"></div>
+<div id="documentViewer"></div>
 </div>

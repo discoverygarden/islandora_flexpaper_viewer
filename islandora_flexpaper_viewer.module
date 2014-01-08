@@ -36,14 +36,13 @@ function islandora_flexpaper_viewer_islandora_viewers($mime_type = NULL) {
  *   the themes available from this module
  */
 function islandora_flexpaper_viewer_theme() {
+  $base = drupal_get_path('module', 'islandora_flexpaper_viewer');
   return array(
     'islandora_flexpaper' => array(
       'variables' => array(
         'pid' => NULL,
         'dsid' => 'SWF',
         'pagenumber' => 1,
-        'flexpaper_path' => url(drupal_get_path('module', 'islandora_flexpaper_viewer') . '/lib/flexpaper', array(
-            'absolute' => TRUE)),
         'flexpaper_config' => array(
           'Scale' => 0.6,
           'ZoomTransition' => 'easeOut',
@@ -64,6 +63,9 @@ function islandora_flexpaper_viewer_theme() {
           'CursorToolsVisible' => TRUE,
           'SearchToolsVisible' => TRUE,
           'localeChain' => 'en_US',
+          'jsDirectory' => url("$base/lib/flexpaper/js/", array('absolute' => TRUE)),
+          'cssDirectory' => url("$base/lib/flexpaper/css/", array('absolute' => TRUE)),
+          'localeDirectory' => url("$base/lib/flexpaper/locale/", array('absolute' => TRUE)),
         ),
       ),
       'template' => 'islandora_flexpaper',
@@ -83,15 +85,15 @@ function islandora_flexpaper_viewer_theme() {
 function islandora_flexpaper_viewer_preprocess_islandora_flexpaper(&$vars) {
   $pid = $vars['pid'];
   $dsid = $vars['dsid'];
-
   if (isset($vars['flexpaper_config']) && !isset($vars['flexpaper_config']['SwfFile'])) {
     $vars['flexpaper_config']['SwfFile'] = url("islandora/object/$pid/datastream/$dsid/view", array(
     'absolute' => TRUE));
   }
-
+  
   $base = drupal_get_path('module', 'islandora_flexpaper_viewer');
-  drupal_add_js("$base/lib/flexpaper/js/flexpaper_flash.js");
+  drupal_add_js("$base/lib/flexpaper/js/flexpaper.js");
+  drupal_add_js("$base/lib/flexpaper/js/flexpaper_handlers.js");
   drupal_add_css("$base/css/flexpaper_setup.css");
   drupal_add_js("$base/js/islandora_flexpaper.js");
-  drupal_add_js(array('islandora_flexpaper_viewer' => array('config' => $vars['flexpaper_config'], 'flexpaper_path' => url("$base/lib/flexpaper"))), 'setting');
+  drupal_add_js(array('islandora_flexpaper_viewer' => array('config' => $vars['flexpaper_config'])), 'setting');
 }
