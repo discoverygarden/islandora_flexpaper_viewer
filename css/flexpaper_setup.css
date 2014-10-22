@@ -17,7 +17,8 @@ root {
 
 #viewer {
     display: block;
-    width: 700px;
+    width: 100%;
+    min-width: 940px;
     height: 500px;
     float:left;
     padding: 0 1em 1em 0;

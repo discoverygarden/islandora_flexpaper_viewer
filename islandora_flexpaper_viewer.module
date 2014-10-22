@@ -62,7 +62,7 @@ function islandora_flexpaper_viewer_theme() {
           'ZoomToolsVisible' => TRUE,
           'NavToolsVisible' => TRUE,
           'CursorToolsVisible' => TRUE,
-          'SearchToolsVisible' => TRUE,
+          'SearchToolsVisible' => FALSE,
           'localeChain' => 'en_US',
         ),
       ),
