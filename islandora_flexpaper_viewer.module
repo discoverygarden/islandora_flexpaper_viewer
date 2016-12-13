@@ -71,10 +71,9 @@ function islandora_flexpaper_viewer_theme() {
 }
 
 /**
- * Preprocessor function that will prepare to display a flexpaper viewer.
+ * Prepares variables for islandora_flexpaper templates.
  *
- * @TODO: move the <?php echo drupal_to_js($flexpaper_config)
- *   ;?> here from the template file
+ * Default template: islandora_flexpaper.tpl.php
  *
  * @param array $vars
  *   The variables to prepare for themeing
@@ -88,7 +87,7 @@ function template_preprocess_islandora_flexpaper(&$vars) {
       'language' => language_default(),
     ));
   }
-  
+
   $base = drupal_get_path('module', 'islandora_flexpaper_viewer');
   drupal_add_js("$base/lib/flexpaper/js/flexpaper.js");
   drupal_add_js("$base/lib/flexpaper/js/flexpaper_handlers.js");
