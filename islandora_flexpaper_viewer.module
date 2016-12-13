@@ -63,9 +63,6 @@ function islandora_flexpaper_viewer_theme() {
           'CursorToolsVisible' => TRUE,
           'SearchToolsVisible' => FALSE,
           'localeChain' => 'en_US',
-          'jsDirectory' => url("$base/lib/flexpaper/js/", array('absolute' => TRUE)),
-          'cssDirectory' => url("$base/lib/flexpaper/css/", array('absolute' => TRUE)),
-          'localeDirectory' => url("$base/lib/flexpaper/locale/", array('absolute' => TRUE)),
         ),
       ),
       'template' => 'islandora_flexpaper',
@@ -82,12 +79,14 @@ function islandora_flexpaper_viewer_theme() {
  * @param array $vars
  *   The variables to prepare for themeing
  */
-function islandora_flexpaper_viewer_preprocess_islandora_flexpaper(&$vars) {
+function template_preprocess_islandora_flexpaper(&$vars) {
   $pid = $vars['pid'];
   $dsid = $vars['dsid'];
   if (isset($vars['flexpaper_config']) && !isset($vars['flexpaper_config']['SwfFile'])) {
     $vars['flexpaper_config']['SwfFile'] = url("islandora/object/$pid/datastream/$dsid/view", array(
-    'absolute' => TRUE));
+      'absolute' => TRUE,
+      'language' => language_default(),
+    ));
   }
   
   $base = drupal_get_path('module', 'islandora_flexpaper_viewer');
@@ -95,5 +94,16 @@ function islandora_flexpaper_viewer_preprocess_islandora_flexpaper(&$vars) {
   drupal_add_js("$base/lib/flexpaper/js/flexpaper_handlers.js");
   drupal_add_css("$base/css/flexpaper_setup.css");
   drupal_add_js("$base/js/islandora_flexpaper.js");
-  drupal_add_js(array('islandora_flexpaper_viewer' => array('config' => $vars['flexpaper_config'])), 'setting');
+  drupal_add_js(
+    array(
+      'islandora_flexpaper_viewer' => array(
+        'config' => $vars['flexpaper_config'] + array(
+          'jsDirectory' => file_create_url("$base/lib/flexpaper/js/"),
+          'cssDirectory' => file_create_url("$base/lib/flexpaper/css/"),
+          'localeDirectory' => file_create_url("$base/lib/flexpaper/locale/"),
+        ),
+      ),
+    ),
+    'setting'
+  );
 }
